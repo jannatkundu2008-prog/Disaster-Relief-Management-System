@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Disaster Relief Management System</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="script.js">
+</head>
+<body>
+
+<aside class="sidebar">
+    <div class="brand">
+        <span class="brand-icon">✚</span>
+        <div>
+            <strong>ReliefConnect</strong>
+            <small>Disaster Management</small>
+        </div>
+    </div>
+
+    <nav>
+        <a href="#dashboard">▦ Dashboard</a>
+        <a href="#requests">▤ Relief Requests</a>
+        <a href="#resources">▣ Resource Inventory</a>
+        <a href="#areas">⌖ Disaster Areas</a>
+        <a href="#allocation">⇄ Resource Allocation</a>
+        <a href="#volunteers">♙ Volunteers</a>
+    </nav>
+
+    <div class="sidebar-bottom">● System Operational</div>
+</aside>
+
+<main class="main-content">
+
+<header class="topbar">
+    <div>
+        <p class="eyebrow">DISASTER RESPONSE PLATFORM</p>
+        <h1>Disaster Relief Dashboard</h1>
+        <p class="muted">Monitor relief operations and coordinate resources.</p>
+    </div>
+    <span class="live-pill">● Live Overview</span>
+</header>
+
+<!-- DASHBOARD -->
+<section id="dashboard" class="section">
+    <h2>Overview</h2>
+
+    <div class="stats-grid">
+        <article class="stat-card">
+            <p>Total Requests</p>
+            <h3 id="statRequests">0</h3>
+        </article>
+        <article class="stat-card">
+            <p>Available Resources</p>
+            <h3 id="statResources">0</h3>
+        </article>
+        <article class="stat-card">
+            <p>Active Volunteers</p>
+            <h3 id="statVolunteers">0</h3>
+        </article>
+        <article class="stat-card">
+            <p>Pending Requests</p>
+            <h3 id="statPending">0</h3>
+        </article>
+    </div>
+
+    <div class="panel">
+        <h3>Recent Relief Requests</h3>
+        <div class="table-wrap">
+            <table id="dashboardRecent">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Location</th>
+                        <th>Resource</th>
+                        <th>Priority</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<!-- RELIEF REQUESTS -->
+<section id="requests" class="section">
+    <h2>Relief Requests</h2>
+
+    <div class="panel">
+        <h3>Submit a Relief Request</h3>
+
+        <form id="requestForm" class="form-grid">
+            <div>
+                <label>Full Name</label>
+                <input id="requestName" required placeholder="Enter full name">
+            </div>
+
+            <div>
+                <label>Contact Number</label>
+                <input id="requestContact" type="tel" required placeholder="Enter contact">
+            </div>
+
+            <div>
+                <label>Location</label>
+                <input id="requestLocation" required placeholder="Enter location">
+            </div>
+
+            <div>
+                <label>Required Resource</label>
+                <select id="requestResource" required>
+                    <option value="">Select Resource</option>
+                    <option>Food Packets</option>
+                    <option>Water Bottles</option>
+                    <option>Medical Kits</option>
+                    <option>Clothing Kits</option>
+                    <option>Shelter Kits</option>
+                </select>
+            </div>
+
+            <div>
+                <label>Priority</label>
+                <select id="requestPriority" required>
+                    <option value="">Select Priority</option>
+                    <option>High</option>
+                    <option>Medium</option>
+                    <option>Low</option>
+                </select>
+            </div>
+
+            <div>
+                <label>People Affected</label>
+                <input id="requestPeople" type="number" min="1" required>
+            </div>
+
+            <div class="full">
+                <label>Emergency Description</label>
+                <textarea id="requestDescription" rows="3"></textarea>
+            </div>
+
+            <button class="primary-btn" type="submit">Submit Request</button>
+        </form>
+    </div>
+
+    <div class="panel">
+        <div class="panel-heading">
+            <h3>All Relief Requests</h3>
+            <input class="table-search" data-search="requestsTable" placeholder="Search requests">
+        </div>
+
+        <div class="table-wrap">
+            <table id="requestsTable">
+                <thead>
+                    <tr>
+                        <th>ID</th><th>Name</th><th>Contact</th>
+                        <th>Location</th><th>Resource</th><th>People</th>
+                        <th>Priority</th><th>Status</th><th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<!-- RESOURCE INVENTORY -->
+<section id="resources" class="section">
+    <h2>Resource Inventory</h2>
+
+    <div class="stats-grid">
+        <article class="stat-card">
+            <p>Total Resource Units</p>
+            <h3 id="resourceUnits">0</h3>
+        </article>
+        <article class="stat-card">
+            <p>Resource Categories</p>
+            <h3 id="resourceCategories">0</h3>
+        </article>
+        <article class="stat-card">
+            <p>Low Stock Items</p>
+            <h3 id="lowStock">0</h3>
+        </article>
+    </div>
+
+    <div class="panel">
+        <h3>Add New Resource</h3>
+
+        <form id="resourceForm" class="form-grid">
+            <div>
+                <label>Resource Name</label>
+                <input id="resourceName" required placeholder="Resource name">
+            </div>
+
+            <div>
+                <label>Quantity</label>
+                <input id="resourceQuantity" type="number" min="1" required>
+            </div>
+
+            <div>
+                <label>Unit</label>
+                <select id="resourceUnit" required>
+                    <option value="">Select Unit</option>
+                    <option>Packets</option>
+                    <option>Bottles</option>
+                    <option>Kits</option>
+                    <option>Boxes</option>
+                    <option>Units</option>
+                </select>
+            </div>
+
+            <button class="primary-btn" type="submit">Add Resource</button>
+        </form>
+    </div>
+
+    <div class="panel">
+        <div class="panel-heading">
+            <h3>Inventory Records</h3>
+            <input class="table-search" data-search="resourcesTable" placeholder="Search resources">
+        </div>
+
+        <div class="table-wrap">
+            <table id="resourcesTable">
+                <thead>
+                    <tr>
+                        <th>ID</th><th>Resource</th><th>Quantity</th>
+                        <th>Unit</th><th>Stock Status</th><th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<!-- DISASTER AREAS -->
+<section id="areas" class="section">
+    <h2>Disaster Areas</h2>
+
+    <div class="panel">
+        <h3>Add Affected Area</h3>
+
+        <form id="areaForm" class="form-grid">
+            <div>
+                <label>Location Name</label>
+                <input id="areaName" required>
+            </div>
+
+            <div>
+                <label>Disaster Type</label>
+                <select id="areaType" required>
+                    <option value="">Select Type</option>
+                    <option>Flood</option>
+                    <option>Storm</option>
+                    <option>Fire</option>
+                    <option>Earthquake</option>
+                    <option>Other</option>
+                </select>
+            </div>
+
+            <div>
+                <label>People Affected</label>
+                <input id="areaPeople" type="number" min="1" required>
+            </div>
+
+            <div>
+                <label>Impact Level</label>
+                <select id="areaImpact" required>
+                    <option value="">Select Impact</option>
+                    <option>High</option>
+                    <option>Medium</option>
+                    <option>Low</option>
+                </select>
+            </div>
+
+            <button class="primary-btn" type="submit">Add Area</button>
+        </form>
+    </div>
+
+    <div class="panel">
+        <div class="panel-heading">
+            <h3>Affected Area Records</h3>
+            <input class="table-search" data-search="areasTable" placeholder="Search areas">
+        </div>
+
+        <div class="table-wrap">
+            <table id="areasTable">
+                <thead>
+                    <tr>
+                        <th>ID</th><th>Location</th><th>Disaster Type</th>
+                        <th>People Affected</th><th>Impact</th><th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<!-- RESOURCE ALLOCATION -->
+<section id="allocation" class="section">
+    <h2>Resource Allocation</h2>
+
+    <div class="panel">
+        <h3>Allocate Resources</h3>
+
+        <form id="allocationForm" class="form-grid">
+            <div>
+                <label>Affected Area</label>
+                <input id="allocationLocation" list="areaOptions" required>
+                <datalist id="areaOptions"></datalist>
+            </div>
+
+            <div>
+                <label>Select Resource</label>
+                <select id="allocationResource" required>
+                    <option value="">Select Resource</option>
+                </select>
+            </div>
+
+            <div>
+                <label>Quantity</label>
+                <input id="allocationQuantity" type="number" min="1" required>
+            </div>
+
+            <div>
+                <label>Priority</label>
+                <select id="allocationPriority" required>
+                    <option value="">Select Priority</option>
+                    <option>High</option>
+                    <option>Medium</option>
+                    <option>Low</option>
+                </select>
+            </div>
+
+            <button class="primary-btn" type="submit">Allocate Resources</button>
+        </form>
+    </div>
+
+    <div class="panel">
+        <div class="panel-heading">
+            <h3>Allocation Records</h3>
+            <input class="table-search" data-search="allocationTable" placeholder="Search allocations">
+        </div>
+
+        <div class="table-wrap">
+            <table id="allocationTable">
+                <thead>
+                    <tr>
+                        <th>ID</th><th>Location</th><th>Resource</th>
+                        <th>Quantity</th><th>Priority</th><th>Status</th><th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<!-- VOLUNTEER MANAGEMENT -->
+<section id="volunteers" class="section">
+    <h2>Volunteer Management</h2>
+
+    <div class="stats-grid">
+        <article class="stat-card">
+            <p>Total Volunteers</p>
+            <h3 id="totalVolunteers">0</h3>
+        </article>
+        <article class="stat-card">
+            <p>Available Volunteers</p>
+            <h3 id="availableVolunteers">0</h3>
+        </article>
+        <article class="stat-card">
+            <p>Assigned Volunteers</p>
+            <h3 id="assignedVolunteers">0</h3>
+        </article>
+    </div>
+
+    <div class="panel">
+        <h3>Register New Volunteer</h3>
+
+        <form id="volunteerForm" class="form-grid">
+            <div>
+                <label>Volunteer Name</label>
+                <input id="volunteerName" required>
+            </div>
+
+            <div>
+                <label>Contact Number</label>
+                <input id="volunteerContact" type="tel" required>
+            </div>
+
+            <div>
+                <label>Volunteer Skills</label>
+                <select id="volunteerSkill" required>
+                    <option value="">Select Skill</option>
+                    <option>First Aid</option>
+                    <option>Food Distribution</option>
+                    <option>Medical Support</option>
+                    <option>Rescue Support</option>
+                    <option>Transportation</option>
+                </select>
+            </div>
+
+            <div>
+                <label>Assign Location</label>
+                <input id="volunteerLocation" list="areaOptions" required>
+            </div>
+
+            <div>
+                <label>Availability</label>
+                <select id="volunteerAvailability" required>
+                    <option value="">Select Status</option>
+                    <option>Available</option>
+                    <option>Assigned</option>
+                    <option>Unavailable</option>
+                </select>
+            </div>
+
+            <button class="primary-btn" type="submit">Register Volunteer</button>
+        </form>
+    </div>
+
+    <div class="panel">
+        <div class="panel-heading">
+            <h3>Volunteer Records</h3>
+            <input class="table-search" data-search="volunteersTable" placeholder="Search volunteers">
+        </div>
+
+        <div class="table-wrap">
+            <table id="volunteersTable">
+                <thead>
+                    <tr>
+                        <th>ID</th><th>Name</th><th>Contact</th><th>Skills</th>
+                        <th>Location</th><th>Status</th><th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<footer>
+    © 2026 ReliefConnect | Disaster Relief Management System
+</footer>
+
+</main>
+
+<div id="toast" class="toast"></div>
+<script src="script.js"></script>
+</body>
+</html>
